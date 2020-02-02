@@ -34,6 +34,7 @@
 - game demo : https://egene.github.io/planet-escape/index.html
 - comparison to what it's been used in Class component. 
 - Benefits in performances.  
+    - quote "If you aren’t measuring, you can’t even know if your optimizations are better, and you certainly won’t know if they make things worse!" 
 - Demo of updating a class component to a hooks.
 - maybe to multiple hooks.
     - can be processing large data in table. 

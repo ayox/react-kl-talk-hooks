@@ -12,8 +12,78 @@
   - [`useImperativeHandle`](#useimperativehandle)
   - [`useLayoutEffect`](#uselayouteffect)
   - [`useDebugValue`](#usedebugvalue)
+
 ## useState & useEffect 
 all are familiar with these hooks, useState are used to create state variables that would trigger a render if value change. useEffect will fire every render except if the deps array values are not changed. 
+
+## useRef 
+a hook to hold a mutable value thorughout renders. It doesn't change when component re-render. 
+### examples 
+
+``` js
+import { useEffect, useRef } from 'react';
+
+/**
+ * Tracks previous state of a value.
+ *
+ * @param value Props, state or any other calculated value.
+ * @returns Value from the previous render of the enclosing component.
+ *
+ * @example
+ * function Component() {
+ *   const [count, setCount] = useState(0);
+ *   const prevCount = usePrevious(count);
+ *   // ...
+ *   return `Now: ${count}, before: ${prevCount}`;
+ * }
+ */
+export default function usePrevious<T>(value: T): T | undefined {
+  // Source: https://reactjs.org/docs/hooks-faq.html#how-to-get-the-previous-props-or-state
+  const ref = useRef<T>();
+  useEffect(() => {
+    ref.current = value;
+  });
+  return ref.current;
+}
+```
+```js
+* @example
+ * function Component() {
+ *   const ref = useRef<HTMLElement>(null);
+ *   const [width, height] = useSize(ref);
+ *   // ...
+ *   return <ElementToObserve ref={ref} />;
+ * }
+ */
+export default function useSize(
+  ref: React.RefObject<HTMLElement>,
+  ResizeObserverOverride?: typeof ResizeObserver,
+): readonly [number, number] {
+  const [size, setSize] = useState<readonly [number, number]>([0, 0]);
+
+  useEffect(() => {
+    const ResizeObserver = ResizeObserverOverride || window.ResizeObserver;
+    if (!ResizeObserver || !ref.current) return undefined;
+
+    const observer = new ResizeObserver(([entry]) => {
+      const { width, height } = entry.contentRect;
+      setSize([width, height]);
+    });
+    observer.observe(ref.current);
+
+    return (): void => {
+      observer.disconnect();
+    };
+  }, [ResizeObserverOverride, ref]);
+
+  return size;
+} 
+```
+https://github.com/kripod/react-hooks/blob/9b791e63f18209546deb16a08ef7c15b3ad65842/packages/state-hooks/src/useUndoable.ts 
+
+https://github.com/kripod/react-hooks/blob/ffcbf42af0b6ca8faa5deff56ba47f7ce51d14aa/packages/state-hooks/src/useTimeline.ts
+
+
 ## useCallback 
 The useCallback Hook lets you keep the same callback reference between re-renders so that shouldComponentUpdate continues to work:
 Pass an inline callback and an array of dependencies. useCallback will return a memoized version of the callback that only changes if one of the dependencies has changed. This is useful when passing callbacks to optimized child components that rely on reference equality to prevent unnecessary renders (e.g. shouldComponentUpdate).
