@@ -14,7 +14,12 @@
 - Common case of hooks usage. 
 - The missing gap that require additional hooks. 
 - ... what are those hooks. 
+    - useContext
+        - Refactor diff from provider to useContext, side to side comparison. 
+            - for more examples : https://frontarm.com/james-k-nelson/usecontext-react-hook/
+        - reciepe for useContext with useReducer. 
 - Hooks definitions and usage. 
+- game demo : https://egene.github.io/planet-escape/index.html
 - comparison to what it's been used in Class component. 
 - Benefits in performances.  
 - Demo of updating a class component to a hooks.

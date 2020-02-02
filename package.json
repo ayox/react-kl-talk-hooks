@@ -1,0 +1,16 @@
+{
+  "private": true,
+  "version": "1.0.0",
+  "scripts": {
+    "start": "mdx-deck deck.mdx --no-html",
+    "build": "mdx-deck build deck.mdx",
+    "test": "echo \"there are no tests\""
+  },
+  "devDependencies": {
+    "code-surfer": "3.0.0-beta.1",
+    "mdx-deck": "3.0.13",
+    "mdx-deck-live-code": "^1.0.1",
+    "styled-components": "^4.4.0"
+  },
+  "name": "my-deck"
+}
