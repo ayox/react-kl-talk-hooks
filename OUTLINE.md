@@ -14,6 +14,18 @@
 - Common case of hooks usage. 
 - The missing gap that require additional hooks. 
 - ... what are those hooks. 
+    - useCallback 
+        - some reason why not : https://kentcdodds.com/blog/usememo-and-usecallback
+        - showcase child re-render for functions. 
+    - useMemo: 
+        - show an example of high preformance calculaetion. 
+        - 
+    - useReducer
+        - How to use it to slowely re-write classes. 
+        - show the car selector using : https://css-tricks.com/getting-to-know-the-usereducer-react-hook/ and reducer animation https://css-tricks.com/understanding-the-almighty-reducer/
+        - show case the usage of accessing the previous state, with example from here: https://adamrackis.dev/state-and-use-reducer/
+        - show example of useReducer with calculate the tax income form ?? 
+        - 
     - useContext
         - Refactor diff from provider to useContext, side to side comparison. 
             - for more examples : https://frontarm.com/james-k-nelson/usecontext-react-hook/
