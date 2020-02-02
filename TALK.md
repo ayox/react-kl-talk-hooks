@@ -18,7 +18,17 @@ all are familiar with these hooks, useState are used to create state variables t
 
 ## useRef 
 a hook to hold a mutable value thorughout renders. It doesn't change when component re-render. 
+
+Yes! The useRef() Hook isn’t just for DOM refs. The “ref” object is a generic container whose current property is mutable and can hold any value, similar to an instance property on a class.
+
+useRef does not accept a special function overload like useState. Instead, you can write your own function that creates and sets it lazily:
+
+
+
 ### examples 
+
+a use case where useCallback should be used insted of useRef : 
+https://codesandbox.io/s/818zzk8m78
 
 ``` js
 import { useEffect, useRef } from 'react';
@@ -317,3 +327,61 @@ function DeepChild(props) {
   );
 }
 ```
+
+## useImperativeHandle
+useImperativeHandle customizes the instance value that is exposed to parent components when using ref
+
+
+useImperativeHandle is very similar, but it lets you do two things:
+
+- It gives you control over the value that is returned. Instead of returning the instance element, you explicitly state what the return value will be (see snippet below).
+- It allows you to replace native functions (such as blur, focus, etc) with functions of your own, thus allowing side-effects to the normal behavior, or a different behavior altogether. Though, you can call the function whatever you like.
+
+### Examples 
+
+```js 
+const MyInput = React.forwardRef((props, ref) => {
+  const [val, setVal] = React.useState('');
+  const inputRef = React.useRef();
+
+  React.useImperativeHandle(ref, () => ({
+    blur: () => {
+      document.title = val;
+      inputRef.current.blur();
+    }
+  }));
+
+  return (
+    <input
+      ref={inputRef}
+      val={val}
+      onChange={e => setVal(e.target.value)}
+      {...props}
+    />
+  );
+});
+
+const App = () => {
+  const ref = React.useRef(null);
+  const onBlur = () => {
+    console.log(ref.current); // Only contains one property!
+    ref.current.blur();
+  };
+
+  return <MyInput ref={ref} onBlur={onBlur} />;
+};
+
+ReactDOM.render(<App />, document.getElementById("app"));
+```
+
+## useLayoutEffect
+
+https://stackoverflow.com/questions/57005663/when-to-use-useimperativehandle-uselayouteffect-and-usedebugvalue
+
+
+## useDebugValue
+Sometimes you might want to debug certain values or properties, but doing so might require expensive operations which might impact performance.
+
+useDebugValue is only called when the React DevTools are open and the related hook is inspected, preventing any impact on performance.
+
+useDebugValue can be used to display a label for custom hooks in React DevTools.

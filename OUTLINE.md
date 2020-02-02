@@ -11,6 +11,10 @@
 - Talk and speaker introduction. 
 - Why did I plan to give this talk. 
 - What are react hooks, briefly. 
+- mental concepts to change :
+    - it has rare cases.
+    - useEffect and hooks. 
+    - preformances.
 - Common case of hooks usage. 
 - The missing gap that require additional hooks. 
 - ... what are those hooks. 
@@ -30,6 +34,8 @@
         - Refactor diff from provider to useContext, side to side comparison. 
             - for more examples : https://frontarm.com/james-k-nelson/usecontext-react-hook/
         - reciepe for useContext with useReducer. 
+    - useRef 
+        - show case a useRenderCounter hook. 
 - Hooks definitions and usage. 
 - game demo : https://egene.github.io/planet-escape/index.html
 - comparison to what it's been used in Class component. 
