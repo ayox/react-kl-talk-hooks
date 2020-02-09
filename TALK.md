@@ -99,6 +99,34 @@ The useCallback Hook lets you keep the same callback reference between re-render
 Pass an inline callback and an array of dependencies. useCallback will return a memoized version of the callback that only changes if one of the dependencies has changed. This is useful when passing callbacks to optimized child components that rely on reference equality to prevent unnecessary renders (e.g. shouldComponentUpdate).
 
 useCallback(fn, deps) is equivalent to useMemo(() => fn, deps).
+```js
+
+
+function Foo({bar, baz}) {
+  const options = {bar, baz}
+  React.useEffect(() => {
+    buzz(options)
+  }, [options]) // we want this to re-run if bar or baz change
+  return <div>foobar</div>
+}
+function Blub() {
+  return <Foo bar="bar value" baz={3} />
+}
+```
+
+The reason this is problematic is because useEffect is going to do a referential equality check on options between every render, and thanks to the way JavaScript works, options will be new every time so when React tests whether options changed between renders it'll always evaluate to true, meaning the useEffect callback will be called after every render rather than only when bar and baz change.
+
+There are two things we can do to fix this:
+```js
+// option 1
+function Foo({bar, baz}) {
+  React.useEffect(() => {
+    const options = {bar, baz}
+    buzz(options)
+  }, [bar, baz]) // we want this to re-run if bar or baz change
+  return <div>foobar</div>
+}
+```
 
 ### examples of useCallback: 
 ```js 

@@ -6,40 +6,54 @@ import {
 import { github,nightOwl, vsDark } from "@code-surfer/themes";
 
 
-export const theme = github;
+export const theme = nightOwl;
 import { FullScreenCode } from 'mdx-deck'
 import { LiveCode } from 'mdx-deck-live-code';
 import { Image } from 'mdx-deck'
 
 
 
-# 
+#
 
-## React-Talk KL
+# Exploring React Additional hooks 🎣
 
-#### Aymen Al-Ashwal
-
-<div>
-<img src = "https://img.icons8.com/metro/52/000000/twitter.png">
-</img> 
-<span>
-@Lashuel
-</span>
-</div>
-
-
+<center>
+<p>
+Aymen Al-Ashwal
+</p>
+<small>
+@lashuel </small>
+</center>
 
 ---
 
-## About me : 
-- From Yemen 🇾🇪 
-- Senior Developer at Nintex 👨‍💻
-- JS and UI ❤️
-- Black coffee and Football ☕️ + ⚽️
----
+# What this talk about ?
 
-## About this Talk 
 
 ---
+<CodeSurfer>
 
-Thank you 
+
+```jsx title="useEffect"
+
+
+function Foo({bar, baz}) {
+  const options = {bar, baz}
+  React.useEffect(() => {
+    buzz(options)
+  }, [options]) // we want this to re-run if bar or baz change
+  return <div>foobar</div>
+}
+function Blub() {
+  return <Foo bar="bar value" baz={3} />
+}
+```
+</CodeSurfer>
+
+---
+
+## About this Talk
+
+---
+
+Thank you

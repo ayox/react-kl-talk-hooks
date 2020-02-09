@@ -11,6 +11,7 @@
 - Talk and speaker introduction. 
 - Why did I plan to give this talk. 
 - What are react hooks, briefly. 
+    - explain what happens to component rendering when calling useEffect to set state.
 - mental concepts to change :
     - it has rare cases.
     - useEffect and hooks. 
