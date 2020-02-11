@@ -11,7 +11,7 @@ borderImageSource: "linear-gradient(120deg, #1890ff, #db18ff)",
 
 
 
-<CodeSurferColumns themes={[nightOwl]}>
+<CodeSurferColumns sizes={[1,2]} themes={[nightOwl]}>
 <Step>
 <div style={styledCenter}>
 <h1> useState</h1>
@@ -20,6 +20,48 @@ borderImageSource: "linear-gradient(120deg, #1890ff, #db18ff)",
 
 ```jsx
 
+function Counter() {
+  const [count, setCounter] = useState(0);
+  const [moreStuff, setMoreStuff] = useState({});
+
+  const setCount = () => {
+    setCounter(count + 1);
+    setMoreStuff(obj);
+  };
+
+  return <button onClick={setCount}>Click me</button>;
+}
+
+```
+</Step>
+<Step>
+<div style={styledCenter}>
+<h1> useState</h1>
+<p> simple and decalerative </p>
+</div>
+
+```jsx 2,3
+function Counter() {
+  const [count, setCounter] = useState(0);
+  const [moreStuff, setMoreStuff] = useState({});
+
+  const setCount = () => {
+    setCounter(count + 1);
+    setMoreStuff(obj);
+  };
+
+  return <button onClick={setCount}>Click me</button>;
+}
+
+```
+</Step>
+<Step>
+<div style={styledCenter}>
+<h1> useState</h1>
+<p> simple and decalerative </p>
+</div>
+
+```jsx 6,7
 function Counter() {
   const [count, setCounter] = useState(0);
   const [moreStuff, setMoreStuff] = useState({});

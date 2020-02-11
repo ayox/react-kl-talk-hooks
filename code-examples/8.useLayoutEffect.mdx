@@ -15,7 +15,7 @@ import useLayoutEffect from './useLayoutEffect.gif'
 <Step>
 
 
-```jsx
+```jsx title="useLayoutEffect" subtitle="before the browser has a chance to paint."
 const Message = ({ boxRef, children }) => {
   const msgRef = React.useRef(null);
   React.useEffect(() => {
@@ -36,7 +36,7 @@ const Message = ({ boxRef, children }) => {
 
 <Step>
 
-```jsx title="useLayoutEffect" subtitle="before the browser has a chance to paint."
+```jsx title="useLayoutEffect" 
 const Message = ({boxRef, children}) => {
   const msgRef = React.useRef(null);
   React.useLayoutEffect(() => {

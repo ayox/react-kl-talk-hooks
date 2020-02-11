@@ -59,15 +59,64 @@ Aymen Al-Ashwal
 
 <CodeUseEffect/>
 
-<!-- ---
-
-## Custom hooks
- -->
 ---
-<!-- 
+
+## Additional hooks
+
+<Appear>
+  <li>useContext</li>
+  <li>useReducer</li>
+  <li>useCallback</li>
+  <li>useMemo</li>
+  
+
+</Appear>
+
+---
+
+## Additional hooks
+
+<Appear>
+  
+ <li>useRef</li>
+  <li>useImperativeHandle</li>
+  <li>useLayoutEffect</li>
+  <li>useDebugValue</li>
+  
+
+</Appear>
+
+---
+
 # useRef
 
---- -->
+<p>a mutable value thorughout renders</p>
+
+
+---
+
+<CodeSurfer>
+
+```jsx title='useRef' subtitle="Access DOM method"
+function TextInputWithFocusButton() {
+  const inputEl = useRef(null);
+  const onButtonClick = () => {
+    // `current` points to the mounted text input element
+    inputEl.current.focus();
+  };
+  return (
+    <div>
+      <input ref={inputEl} type="text" />
+      <button onClick={onButtonClick}>Focus the input</button>
+    </div>
+  );
+}
+
+```
+
+  </CodeSurfer>
+
+---
 
 <CodeUseRef/>
 
@@ -82,6 +131,9 @@ Aymen Al-Ashwal
 <Appear>
 <h3>
 Referential equality
+</h3>
+<h3>
+it's best to measure first.
 </h3>
 
 </Appear>
@@ -104,6 +156,18 @@ Expnisive calcuation
 ---
 
 <CodeuseMemo/>
+
+---
+
+
+# useMemo
+
+<Appear>
+<h3>
+State for the wrapped tree.
+</h3>
+
+</Appear>
 
 ---
 
@@ -389,7 +453,33 @@ function scanReducer(state, [type, payload]) {
 ---
 
 
+# useImperativeHandle
+
+<Appear>
+<h3>
+replaces native function
+</h3>
+<h3>
+used with Ref</h3>
+
+</Appear>
+
+
+---
+
+
 <CodeuseImperativeHandle/>
+
+---
+# useLayoutEffect
+
+<Appear>
+<h3>
+Syncronize effect
+</h3>
+
+</Appear>
+
 
 ---
 
@@ -402,14 +492,93 @@ function scanReducer(state, [type, payload]) {
 
 ---
 
-# Demo
+### Tips and Pitfalls
 
 --- 
-### Tips and Pitfalls
+
+<CodeSurfer>
+
+
+```jsx title="Render properties" subtitle="state and props"
+function Counter() {
+  const [count, setCount] = useState(0);
+
+  function handleAlertClick() {
+    setTimeout(() => {
+      alert('You clicked on: ' + count);
+    }, 3000);
+  }
+
+  return (
+    <div>
+      <p>You clicked {count} times</p>
+      <button onClick={() => setCount(count + 1)}>
+        Click me
+      </button>
+      <button onClick={handleAlertClick}>
+        Show alert
+      </button>
+    </div>
+  );
+}
+```
+```jsx 4:8 title="Render properties"
+function Counter() {
+  const [count, setCount] = useState(0);
+
+  function handleAlertClick() {
+    setTimeout(() => {
+      alert('You clicked on: ' + count);
+    }, 3000);
+  }
+
+  return (
+    <div>
+      <p>You clicked {count} times</p>
+      <button onClick={() => setCount(count + 1)}>
+        Click me
+      </button>
+      <button onClick={handleAlertClick}>
+        Show alert
+      </button>
+    </div>
+  );
+}
+```
+
+``` jsx
+function Counter() {
+  const [count, setCount] = useState(0);
+
+  useEffect(() => {
+    setTimeout(() => {
+      console.log(`You clicked ${count} times`);
+    }, 3000);
+  });
+
+  return (
+    <div>
+      <p>You clicked {count} times</p>
+      <button onClick={() => setCount(count + 1)}>
+        Click me
+      </button>
+    </div>
+  );
+}
+```
+</CodeSurfer>
+
 
 ---
 
 <CodePitFalls/>
 
 ---
+
+Qustions 
+
+---
+
 Thank you
+
+@Lashuel

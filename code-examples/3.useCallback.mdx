@@ -23,6 +23,33 @@ borderImageSource: "linear-gradient(120deg, #1890ff, #db18ff)",
 </div>
 
 
+```jsx 
+function ProductPage({ productId }) {
+  // ✅ Wrap with useCallback to avoid change on every render
+  const fetchProduct = useCallback(() => {
+    // ... Does something with productId ...
+  }, [productId]); // ✅ All useCallback dependencies are specified
+
+  return <ProductDetails fetchProduct={fetchProduct} />;
+}
+
+function ProductDetails({ fetchProduct }) {
+  useEffect(() => {
+    fetchProduct();
+  }, [fetchProduct]); // ✅ All useEffect dependencies are specified
+  // ...
+}
+```
+
+</Step>
+
+<Step>
+<div style={styledCenter}>
+<h1> useCallback</h1>
+<p>Preserve functions state</p>
+</div>
+
+
 ```jsx 2:5
 function ProductPage({ productId }) {
   // ✅ Wrap with useCallback to avoid change on every render

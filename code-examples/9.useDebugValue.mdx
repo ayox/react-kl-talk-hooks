@@ -14,47 +14,26 @@ borderImageSource: "linear-gradient(120deg, #1890ff, #db18ff)",
 <Step>
 <div style={styledCenter}>
 <h1> useDebugValue </h1>
-<p> simple and decalerative </p>
+<p>label custom hooks in React DevTools.
+ </p>
 </div>
 
 ```jsx
-...
-const [count, setCounter] = useState(0);
-const [moreStuff, setMoreStuff] = useState({});
+.function useFriendStatus(friendID) {
+  const [isOnline, setIsOnline] = useState(null);
 
-const setCount = () => {
-  setCounter(count + 1);
-  setMoreStuff(...);
-};
+  // ...
 
-return <button onClick={setCount}>Click me</button>;
+  // Show a label in DevTools next to this Hook
+  // e.g. "FriendStatus: Online"
+  useDebugValue(isOnline ? 'Online' : 'Offline');
 
-```
-
-</Step>
-
-<Step>
-<div style={styledCenter}>
-<h1> useEffect</h1>
-<p> Runs every render </p>
-</div>
-
-```jsx
-
-
-function Foo({bar, baz}) {
-  const options = {bar, baz}
-  React.useEffect(() => {
-    buzz(options)
-  }, [options]) // we want this to re-run if bar or baz change
-  return <div>foobar</div>
-}
-function Blub() {
-  return <Foo bar="bar value" baz={3} />
+  return isOnline;
 }
 ```
 
 </Step>
+
 
 
 </CodeSurferColumns>

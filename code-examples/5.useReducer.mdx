@@ -11,7 +11,7 @@ borderImageSource: "linear-gradient(120deg, #1890ff, #db18ff)",
 
 
 
-<CodeSurferColumns themes={[nightOwl]}>
+<CodeSurferColumns sizes={[1,2]}themes={[nightOwl]}>
 <Step>
 <div style={styledCenter}>
 <h1>useReducer</h1>
@@ -20,7 +20,9 @@ borderImageSource: "linear-gradient(120deg, #1890ff, #db18ff)",
 
 ```jsx
 
-const reducer = (prevState, updatedProperty) => ({
+const reducer = (prevState, 
+updatedProperty) => 
+({
   ...prevState,
   ...updatedProperty,
 });
@@ -30,9 +32,10 @@ const initState = {
   age: 25,
 };
 
-const [state, setState] = useReducer(reducer, initState);
+const [state, setState]= useReducer(
+                      reducer, initState)
+                      ;
 
-//update name value (like we do in class component!)
 setState({ name: 'Alice' });
 
 //updated state:

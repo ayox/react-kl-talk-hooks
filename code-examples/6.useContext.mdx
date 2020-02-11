@@ -39,11 +39,96 @@ function Toolbar(props) {
 
 function ThemedButton() {
   const theme = useContext(ThemeContext);
-
   return (
-    <button style={{ 
-      background: theme.background,
-       color: theme.foreground }}>
+    <button
+      style={{
+        background: theme.background,
+        color: theme.foreground
+      }}
+    >
+      I am styled by theme context!
+    </button>
+  );
+}
+```
+
+</Step>
+<Step>
+<div style={styledCenter}>
+<h2> useContext</h2>
+<p>use across component tree</p>
+</div>
+
+```jsx 5:7
+const ThemeContext = React.createContext(themes.light);
+
+function App() {
+  return (
+    <ThemeContext.Provider value={themes.dark}>
+      <Toolbar />
+    </ThemeContext.Provider>
+  );
+}
+
+function Toolbar(props) {
+  return (
+    <div>
+      <ThemedButton />
+    </div>
+  );
+}
+
+function ThemedButton() {
+  const theme = useContext(ThemeContext);
+  return (
+    <button
+      style={{
+        background: theme.background,
+        color: theme.foreground
+      }}
+    >
+      I am styled by theme context!
+    </button>
+  );
+}
+
+```
+
+</Step>
+<Step>
+<div style={styledCenter}>
+<h2> useContext</h2>
+<p>use across component tree</p>
+</div>
+
+```jsx 20,24,25
+const ThemeContext = React.createContext(themes.light);
+
+function App() {
+  return (
+    <ThemeContext.Provider value={themes.dark}>
+      <Toolbar />
+    </ThemeContext.Provider>
+  );
+}
+
+function Toolbar(props) {
+  return (
+    <div>
+      <ThemedButton />
+    </div>
+  );
+}
+
+function ThemedButton() {
+  const theme = useContext(ThemeContext);
+  return (
+    <button
+      style={{
+        background: theme.background,
+        color: theme.foreground
+      }}
+    >
       I am styled by theme context!
     </button>
   );

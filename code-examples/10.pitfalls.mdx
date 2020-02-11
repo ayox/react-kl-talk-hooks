@@ -13,7 +13,7 @@ borderImageSource: "linear-gradient(120deg, #1890ff, #db18ff)",
 <CodeSurferColumns themes={[nightOwl]}>
 <Step>
 <div style={styledCenter}>
-<p> Wrong Deps array </p>
+<h1> Wrong Deps array </h1>
 </div>
 
 
@@ -22,7 +22,7 @@ function Foo({bar, baz}) {
   const options = {bar, baz}
   React.useEffect(() => {
     buzz(options)
-  }, [bar,baz])
+  }, [options])
   return <div>foobar</div>
 }
 function Blub() {

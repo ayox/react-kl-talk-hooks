@@ -10,12 +10,12 @@ borderImageSource: "linear-gradient(120deg, #1890ff, #db18ff)",
 }
 
 
-<CodeSurferColumns themes={[nightOwl]}>
+<CodeSurferColumns sizes={[1,2]} themes={[nightOwl]}>
 
 <Step>
 <div style={styledCenter}>
 <h1> useEffect</h1>
-<p> Runs on every component render </p>
+<p> Runs on every render </p>
 </div>
 
 ```jsx
@@ -30,8 +30,7 @@ function Counter() {
     <div>
       <p>You clicked {count} times</p>
       <button onClick={() => setCount(count + 1)}>
-        Click me
-      </button>
+        Click me</button>
     </div>
   );
 }
@@ -39,25 +38,54 @@ function Counter() {
 
 </Step>
 <Step>
-<div>
 <div style={styledCenter}>
 <h1> useEffect</h1>
-<p> When Props or State changed </p>
+<p> Runs on every render </p>
 </div>
 
+```jsx 4:6
+function Counter() {
+  const [count, setCount] = useState(0);
+
+  useEffect(() => {
+    document.title = `You clicked ${count} times`;
+  });
+
+  return (
+    <div>
+      <p>You clicked {count} times</p>
+      <button onClick={() => setCount(count + 1)}>
+        Click me</button>
+    </div>
+  );
+}
+
+```
+
+</Step>
+<Step>
+<div style={styledCenter}>
+<h1> useEffect</h1>
+<p>use the Deps array </p>
 </div>
 
-```jsx
-function Foo({bar, baz}) {
-  const options = {bar, baz}
-  React.useEffect(() => {
-    buzz(options)
-  }, [bar,baz])
-  return <div>foobar</div>
+```jsx 4:6
+function Counter() {
+  const [count, setCount] = useState(0);
+  ....
+  useEffect(() => {
+    document.title = `You clicked ${count} times`;
+  },[count]);
+  ....
+  return (
+    <div>
+      <p>You clicked {count} times</p>
+      <button onClick={() => setCount(count + 1)}>
+        Click me</button>
+    </div>
+  );
 }
-function Blub() {
-  return <Foo bar="bar value" baz={3} />
-}
+
 ```
 
 </Step>
