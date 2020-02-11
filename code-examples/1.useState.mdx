@@ -1,0 +1,40 @@
+import {
+  CodeSurfer,
+  CodeSurferColumns,
+  Step,
+} from "code-surfer";
+import { github,nightOwl, vsDark } from "@code-surfer/themes";
+const styledCenter = {width:"fit-content", textAlign: "center",borderBottom: '10px solid',
+borderImageSource: "linear-gradient(120deg, #1890ff, #db18ff)",
+  borderImageSlice: 5,
+}
+
+
+
+<CodeSurferColumns themes={[nightOwl]}>
+<Step>
+<div style={styledCenter}>
+<h1> useState</h1>
+<p> simple and decalerative </p>
+</div>
+
+```jsx
+
+function Counter() {
+  const [count, setCounter] = useState(0);
+  const [moreStuff, setMoreStuff] = useState({});
+
+  const setCount = () => {
+    setCounter(count + 1);
+    setMoreStuff(obj);
+  };
+
+  return <button onClick={setCount}>Click me</button>;
+}
+
+```
+</Step>
+
+</CodeSurferColumns>
+
+

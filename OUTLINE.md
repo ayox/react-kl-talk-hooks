@@ -15,7 +15,7 @@
 - mental concepts to change :
     - it has rare cases.
     - useEffect and hooks. 
-    - preformances.
+    - performances.
 - Common case of hooks usage. 
 - The missing gap that require additional hooks. 
 - ... what are those hooks. 
@@ -23,10 +23,10 @@
         - some reason why not : https://kentcdodds.com/blog/usememo-and-usecallback
         - showcase child re-render for functions. 
     - useMemo: 
-        - show an example of high preformance calculaetion. 
+        - show an example of high performance calculation. 
         - 
     - useReducer
-        - How to use it to slowely re-write classes. 
+        - How to use it to slowly re-write classes. 
         - show the car selector using : https://css-tricks.com/getting-to-know-the-usereducer-react-hook/ and reducer animation https://css-tricks.com/understanding-the-almighty-reducer/
         - show case the usage of accessing the previous state, with example from here: https://adamrackis.dev/state-and-use-reducer/
         - show example of useReducer with calculate the tax income form ?? 

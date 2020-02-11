@@ -1,0 +1,60 @@
+import {
+  CodeSurfer,
+  CodeSurferColumns,
+  Step,
+} from "code-surfer";
+import { github,nightOwl, vsDark } from "@code-surfer/themes";
+const styledCenter = {width:"fit-content", textAlign: "center",borderBottom: '10px solid',
+borderImageSource: "linear-gradient(120deg, #1890ff, #db18ff)",
+  borderImageSlice: 5,
+}
+
+
+<CodeSurferColumns themes={[nightOwl]}>
+<Step>
+<div style={styledCenter}>
+<h1> useDebugValue </h1>
+<p> simple and decalerative </p>
+</div>
+
+```jsx
+...
+const [count, setCounter] = useState(0);
+const [moreStuff, setMoreStuff] = useState({});
+
+const setCount = () => {
+  setCounter(count + 1);
+  setMoreStuff(...);
+};
+
+return <button onClick={setCount}>Click me</button>;
+
+```
+
+</Step>
+
+<Step>
+<div style={styledCenter}>
+<h1> useEffect</h1>
+<p> Runs every render </p>
+</div>
+
+```jsx
+
+
+function Foo({bar, baz}) {
+  const options = {bar, baz}
+  React.useEffect(() => {
+    buzz(options)
+  }, [options]) // we want this to re-run if bar or baz change
+  return <div>foobar</div>
+}
+function Blub() {
+  return <Foo bar="bar value" baz={3} />
+}
+```
+
+</Step>
+
+
+</CodeSurferColumns>

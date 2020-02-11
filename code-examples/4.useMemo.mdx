@@ -1,0 +1,35 @@
+import {
+  CodeSurfer,
+  CodeSurferColumns,
+  Step,
+} from "code-surfer";
+import { github,nightOwl, vsDark } from "@code-surfer/themes";
+const styledCenter = {width:"fit-content", textAlign: "center",borderBottom: '10px solid',
+borderImageSource: "linear-gradient(120deg, #1890ff, #db18ff)",
+  borderImageSlice: 5,
+}
+
+
+<CodeSurferColumns themes={[nightOwl]}>
+<Step>
+<div style={styledCenter}>
+<h1> useMemo</h1>
+<p>Big data processing</p>
+</div>
+
+```jsx
+
+function RenderPrimes({iterations, multiplier}) {
+  const primes = React.useMemo(
+    () => 
+    calculatePrimes(iterations, multiplier),
+     [iterations,multiplier]
+     )
+
+  return <div>Primes! {primes}</div>
+}
+```
+
+</Step>
+
+</CodeSurferColumns>

@@ -1,0 +1,52 @@
+import {
+  CodeSurfer,
+  CodeSurferColumns,
+  Step,
+} from "code-surfer";
+import { github,nightOwl, vsDark } from "@code-surfer/themes";
+const styledCenter = {width:"fit-content", textAlign: "center",borderBottom: '10px solid', 
+borderImageSource: "linear-gradient(120deg, #1890ff, #db18ff)",
+  borderImageSlice: 5,
+}
+
+
+<CodeSurferColumns themes={[nightOwl]}>
+<Step>
+<div style={styledCenter}>
+<h1> useRef</h1>
+<p>a mutable value thorughout renders</p>
+</div>
+
+```jsx
+function usePrevious(value) {
+  const ref = useRef();
+  useEffect(() => {
+    ref.current = value;
+  });
+  return ref.current;
+}
+```
+
+</Step>
+
+
+<Step>
+<div style={styledCenter}>
+<h1> useRef</h1>
+<p>with other hooks</p>
+</div>
+
+```jsx
+ function Component() {
+   const ref = useRef(null);
+    const [width, height] = useSize(ref);
+    // ...
+    return <ElementToObserve ref={ref} />;
+  }
+```
+
+</Step>
+
+
+</CodeSurferColumns>
+

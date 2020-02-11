@@ -27,9 +27,6 @@ useRef does not accept a special function overload like useState. Instead, you c
 
 ### examples 
 
-a use case where useCallback should be used insted of useRef : 
-https://codesandbox.io/s/818zzk8m78
-
 ``` js
 import { useEffect, useRef } from 'react';
 
@@ -95,6 +92,14 @@ https://github.com/kripod/react-hooks/blob/ffcbf42af0b6ca8faa5deff56ba47f7ce51d1
 
 
 ## useCallback 
+referential equality
+
+Since javascript compares equality by reference
+
+Function are just objects with ability to call. 
+
+A strong use-case here to avoid child component re-renders.
+
 The useCallback Hook lets you keep the same callback reference between re-renders so that shouldComponentUpdate continues to work:
 Pass an inline callback and an array of dependencies. useCallback will return a memoized version of the callback that only changes if one of the dependencies has changed. This is useful when passing callbacks to optimized child components that rely on reference equality to prevent unnecessary renders (e.g. shouldComponentUpdate).
 
@@ -154,6 +159,8 @@ function useClientRect() {
 
 ```
 
+a use case where useCallback should be used instead of useRef : 
+https://codesandbox.io/s/818zzk8m78
 
 ## useMemo
 
@@ -413,3 +420,65 @@ Sometimes you might want to debug certain values or properties, but doing so mig
 useDebugValue is only called when the React DevTools are open and the related hook is inspected, preventing any impact on performance.
 
 useDebugValue can be used to display a label for custom hooks in React DevTools.
+
+
+
+## Pitfalls 
+
+
+Each Render Has Its Own Event Handlers
+So far so good. What about event handlers?
+
+Look at this example. It shows an alert with the count after three seconds:
+```jsx
+function Counter() {
+  const [count, setCount] = useState(0);
+
+  function handleAlertClick() {
+    setTimeout(() => {
+      alert('You clicked on: ' + count);
+    }, 3000);
+  }
+
+  return (
+    <div>
+      <p>You clicked {count} times</p>
+      <button onClick={() => setCount(count + 1)}>
+        Click me
+      </button>
+      <button onClick={handleAlertClick}>
+        Show alert
+      </button>
+    </div>
+  );
+}
+```
+Let’s say I do this sequence of steps:
+
+Increment the counter to 3
+Press “Show alert”
+Increment it to 5 before the timeout fires
+Counter demo
+
+What do you expect the alert to show? Will it show 5 — which is the counter state at the time of the alert? Or will it show 3 — the state when I clicked?
+
+``` jsx
+function Counter() {
+  const [count, setCount] = useState(0);
+
+  useEffect(() => {
+    setTimeout(() => {
+      console.log(`You clicked ${count} times`);
+    }, 3000);
+  });
+
+  return (
+    <div>
+      <p>You clicked {count} times</p>
+      <button onClick={() => setCount(count + 1)}>
+        Click me
+      </button>
+    </div>
+  );
+}
+```

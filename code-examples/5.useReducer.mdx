@@ -1,0 +1,92 @@
+import {
+  CodeSurfer,
+  CodeSurferColumns,
+  Step,
+} from "code-surfer";
+import { github,nightOwl, vsDark } from "@code-surfer/themes";
+const styledCenter = {width:"fit-content", textAlign: "center",borderBottom: '10px solid',
+borderImageSource: "linear-gradient(120deg, #1890ff, #db18ff)",
+  borderImageSlice: 5,
+}
+
+
+
+<CodeSurferColumns themes={[nightOwl]}>
+<Step>
+<div style={styledCenter}>
+<h1>useReducer</h1>
+<p>Old <code>setState</code></p>
+</div>
+
+```jsx
+
+const reducer = (prevState, updatedProperty) => ({
+  ...prevState,
+  ...updatedProperty,
+});
+
+const initState = {
+  name: 'Bob',
+  age: 25,
+};
+
+const [state, setState] = useReducer(reducer, initState);
+
+//update name value (like we do in class component!)
+setState({ name: 'Alice' });
+
+//updated state:
+state = {
+  name: 'Alice',
+  age: 25,
+};
+```
+</Step>
+<Step>
+<div style={styledCenter}>
+<h1>useReducer</h1>
+<p>Usage with useContext</p>
+</div>
+
+```jsx
+const TodosDispatch = React.createContext(null);
+
+function TodosApp() {
+  // Note: `dispatch` won't change between re-renders
+  const [todos, dispatch] = useReducer(todosReducer);
+
+  return (
+    <TodosDispatch.Provider value={dispatch}>
+      <DeepTree todos={todos} />
+    </TodosDispatch.Provider>
+  );
+}
+```
+
+</Step>
+<Step>
+<div style={styledCenter}>
+<h1>useReducer</h1>
+<p>Usage with useContext</p>
+</div>
+
+
+
+```jsx 2,3
+function DeepChild(props) {
+  // If we want to perform an action, we can get dispatch from context.
+  const dispatch = useContext(TodosDispatch);
+
+  function handleClick() {
+    dispatch({ type: 'add', text: 'hello' });
+  }
+
+  return (
+    <button onClick={handleClick}>Add todo</button>
+  );
+}
+```
+</Step>
+
+</CodeSurferColumns>
+

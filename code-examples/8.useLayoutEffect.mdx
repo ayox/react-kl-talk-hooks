@@ -1,0 +1,56 @@
+import {
+  CodeSurfer,
+  CodeSurferColumns,
+  Step,
+} from "code-surfer";
+import { github,nightOwl, vsDark } from "@code-surfer/themes";
+const styledCenter = {width:"fit-content", textAlign: "center",borderBottom: '10px solid',
+borderImageSource: "linear-gradient(120deg, #1890ff, #db18ff)",
+  borderImageSlice: 5,
+}
+import useEffect from './useEffect.gif'
+import useLayoutEffect from './useLayoutEffect.gif'
+
+<CodeSurferColumns themes={[nightOwl]}>
+<Step>
+
+
+```jsx
+const Message = ({ boxRef, children }) => {
+  const msgRef = React.useRef(null);
+  React.useEffect(() => {
+    const rect = boxRef.current.getBoundingClientRect();
+    msgRef.current.style.top = "${rect.height + rect.top}px";
+  }, []);
+
+  return (
+    <span ref={msgRef} className="msg">
+      {children}
+    </span>
+  );
+};
+```
+<Image src={useEffect} size='80%'></Image>
+
+</Step>
+
+<Step>
+
+```jsx title="useLayoutEffect" subtitle="before the browser has a chance to paint."
+const Message = ({boxRef, children}) => {
+  const msgRef = React.useRef(null);
+  React.useLayoutEffect(() => {
+    const rect = boxRef.current.getBoundingClientRect();
+    msgRef.current.style.top = "${rect.height + rect.top}px";
+  }, []);
+
+  return <span ref={msgRef} className="msg">{children}</span>;
+};
+
+```
+<Image src={useLayoutEffect} size='80%'></Image>
+
+</Step>
+
+
+</CodeSurferColumns>

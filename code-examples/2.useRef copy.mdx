@@ -1,0 +1,41 @@
+import {
+  CodeSurfer,
+  CodeSurferColumns,
+  Step,
+} from "code-surfer";
+import { github,nightOwl, vsDark } from "@code-surfer/themes";
+const styledCenter = {width:"fit-content", textAlign: "center",borderBottom: '10px solid',
+borderImageSource: "linear-gradient(120deg, #1890ff, #db18ff)",
+  borderImageSlice: 5,
+}
+
+<CodeSurfer>
+
+```jsx title="useTimeline"
+export default function useTimeline(value, maxLength) {
+  const valuesRef = useRef([]);
+  const prevValue = usePrevious(value);
+
+  if (!Object.is(value, prevValue)) {
+    valuesRef.current = [...valuesRef.current, value];
+  }
+
+  if (valuesRef.current.length > maxLength) {
+    valuesRef.current.splice(0, valuesRef.current.length - maxLength);
+  }
+
+  return valuesRef.current;
+}
+
+```
+
+```jsx  title="inside component useTimeline"
+function Component() {
+
+  const [count, setCount] = useState(0);
+  const counts = useTimeline(count);
+  return `Now: ${count}, history: ${counts}`;
+
+}
+```
+</CodeSurfer>

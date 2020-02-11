@@ -1,0 +1,66 @@
+import {
+  CodeSurfer,
+  CodeSurferColumns,
+  Step,
+} from "code-surfer";
+import { github,nightOwl, vsDark } from "@code-surfer/themes";
+const styledCenter = {width:"fit-content", textAlign: "center",borderBottom: '10px solid',
+borderImageSource: "linear-gradient(120deg, #1890ff, #db18ff)",
+  borderImageSlice: 5,
+}
+
+
+<CodeSurferColumns themes={[nightOwl]}>
+
+<Step>
+<div style={styledCenter}>
+<h1> useEffect</h1>
+<p> Runs on every component render </p>
+</div>
+
+```jsx
+function Counter() {
+  const [count, setCount] = useState(0);
+
+  useEffect(() => {
+    document.title = `You clicked ${count} times`;
+  });
+
+  return (
+    <div>
+      <p>You clicked {count} times</p>
+      <button onClick={() => setCount(count + 1)}>
+        Click me
+      </button>
+    </div>
+  );
+}
+```
+
+</Step>
+<Step>
+<div>
+<div style={styledCenter}>
+<h1> useEffect</h1>
+<p> When Props or State changed </p>
+</div>
+
+</div>
+
+```jsx
+function Foo({bar, baz}) {
+  const options = {bar, baz}
+  React.useEffect(() => {
+    buzz(options)
+  }, [bar,baz])
+  return <div>foobar</div>
+}
+function Blub() {
+  return <Foo bar="bar value" baz={3} />
+}
+```
+
+</Step>
+
+
+</CodeSurferColumns>

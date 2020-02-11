@@ -3,8 +3,20 @@ import {
   CodeSurferColumns,
   Step,
 } from "code-surfer";
-import { github,nightOwl, vsDark } from "@code-surfer/themes";
 
+import { github,nightOwl, vsDark } from "@code-surfer/themes";
+import CodeUseState from './code-examples/1.useState.mdx'
+import CodeUseEffect from './code-examples/1.2.useEffect.mdx'
+import CodeUseRef from './code-examples/2.useRef.mdx'
+import CodeUseRef2 from './code-examples/2.useRef copy.mdx'
+import CodeUseCallback from './code-examples/3.useCallback.mdx'
+import CodeuseMemo  from './code-examples/4.useMemo.mdx'
+import CodeuseReducer  from './code-examples/5.useReducer.mdx'
+import CodeuseContext  from './code-examples/6.useContext.mdx'
+import CodeuseImperativeHandle  from './code-examples/7.useImperativeHandle.mdx'
+import CodeuseLayoutEffect  from './code-examples/8.useLayoutEffect.mdx'
+import CodeuseDebugValue  from './code-examples/9.useDebugValue.mdx'
+import CodePitFalls  from './code-examples/10.pitfalls.mdx'
 
 export const theme = nightOwl;
 import { FullScreenCode } from 'mdx-deck'
@@ -13,9 +25,9 @@ import { Image } from 'mdx-deck'
 
 
 
-#
 
-# Exploring React Additional hooks 🎣
+# Exploring React
+# Additional hooks 🎣
 
 <center>
 <p>
@@ -27,33 +39,377 @@ Aymen Al-Ashwal
 
 ---
 
-# What this talk about ?
+## About this Talk 💡
+
+---
+
+## Why does hooks exists? 🧐
+
+  <Appear>
+    <h3>Share stateful logic 🤝</h3>
+    <h3>Class Components are complex 🤷‍♂️</h3>
+    <h3>Declarative approach 🤓</h3>
+  </Appear>
+
+---
+
+<CodeUseState/>
+
+---
+
+<CodeUseEffect/>
+
+<!-- ---
+
+## Custom hooks
+ -->
+---
+<!-- 
+# useRef
+
+--- -->
+
+<CodeUseRef/>
+
+---
+
+<CodeUseRef2/>
+
+---
+
+# useCallback
+
+<Appear>
+<h3>
+Referential equality
+</h3>
+
+</Appear>
+
+---
+
+<CodeUseCallback/>
+
+---
+
+# useMemo
+
+<Appear>
+<h3>
+Expnisive calcuation
+</h3>
+
+</Appear>
+
+---
+
+<CodeuseMemo/>
+
+---
+
+<CodeuseContext/>
+
+---
+
+<CodeSurfer>
+
+```jsx  title='Example with Routes'
+
+import React from 'react'
+
+const CurrentRoute = React.createContext({ path: '/welcome' })
+
+export default function App() {
+  return (
+    <CurrentRoute.Consumer>
+      {currentRoute => 
+        currentRoute.path === '/welcome' &&
+        "Welcome!"
+      }
+    </CurrentRoute.Consumer>
+  )
+}
+
+
+```
+
+```jsx  title='What ?? '
+
+import React from 'react'
+
+const CurrentRoute = React.createContext({ path: '/welcome' })
+const CurrentUser = React.createContext(undefined)
+const IsStatic = React.createContext(false)
+
+export default function App() {
+  return (
+    <CurrentRoute.Consumer>
+      {currentRoute =>
+        <CurrentUser.Consumer>
+          {currentUser =>
+            <IsStatic.Consumer>
+              {isStatic =>
+                !isStatic &&
+                currentRoute.path === '/welcome' &&
+                (currentUser
+                  ? `Welcome back, ${currentUser.name}!`
+                  : 'Welcome!'
+                )
+              }
+            </IsStatic.Consumer>
+          }
+        </CurrentUser.Consumer>
+      }
+    </CurrentRoute.Consumer>
+  )
+}
+
+```
+
+```jsx  title='useContext to the resuce'
+
+import React, { useContext } from 'react'
+
+const CurrentRoute = React.createContext({ path: '/welcome' })
+const CurrentUser = React.createContext(undefined)
+const IsStatic = React.createContext(false)
+
+export default function App() {
+  let currentRoute = useContext(CurrentRoute)
+  let currentUser = useContext(CurrentUser)
+  let isStatic = useContext(IsStatic)
+
+  return (
+    !isStatic &&
+    currentRoute.path === '/welcome' &&
+    (currentUser
+      ? `Welcome back, ${currentUser.name}!`
+      : 'Welcome!'
+    )
+  )
+}
+
+```
+  </CodeSurfer>
+
+---
+
+# useReducer
+
+<Appear>
+<h3>
+When state values are connected
+</h3>
+
+</Appear>
 
 
 ---
+
+
 <CodeSurfer>
 
+```jsx title="Connected state values"
+...
+ useEffect(() => {
+  const ws = new WebSocket(webSocketAddress("/bookEntryWS"));
 
-```jsx title="useEffect"
+  ws.onmessage = ({ data }) => {
+    let packet = JSON.parse(data);
+    if (packet._messageType == "initial") {
+      setPending(packet.pending);
+    } else if (packet._messageType == "bookAdded") {
+      setPending(pending - 1 || 0);
+      setBooksJustSaved([packet, ...booksJustSaved]);
+    } else if (packet._messageType == "pendingBookAdded") {
+      setPending(+pending + 1 || 0);
+    } else if (packet._messageType == "bookLookupFailed") {
+      setPending(pending - 1 || 0);
+      setBooksJustSaved([
+        {
+          _id: "" + new Date(),
+          title: `Failed lookup for ${packet.isbn}`,
+          success: false
+        },
+        ...booksJustSaved
+      ]);
+    }
+  };
+  return () => {
+    try {
+      ws.close();
+    } catch (e) {}
+  };
+}, []);
 
-
-function Foo({bar, baz}) {
-  const options = {bar, baz}
-  React.useEffect(() => {
-    buzz(options)
-  }, [options]) // we want this to re-run if bar or baz change
-  return <div>foobar</div>
-}
-function Blub() {
-  return <Foo bar="bar value" baz={3} />
-}
+...
 ```
+
+```jsx 6:24 title="Connected state values"
+...
+ useEffect(() => {
+  const ws = new WebSocket(webSocketAddress("/bookEntryWS"));
+
+  ws.onmessage = ({ data }) => {
+    let packet = JSON.parse(data);
+    if (packet._messageType == "initial") {
+      setPending(packet.pending);
+    } else if (packet._messageType == "bookAdded") {
+      setPending(pending - 1 || 0);
+      setBooksJustSaved([packet, ...booksJustSaved]);
+    } else if (packet._messageType == "pendingBookAdded") {
+      setPending(+pending + 1 || 0);
+    } else if (packet._messageType == "bookLookupFailed") {
+      setPending(pending - 1 || 0);
+      setBooksJustSaved([
+        {
+          _id: "" + new Date(),
+          title: `Failed lookup for ${packet.isbn}`,
+          success: false
+        },
+        ...booksJustSaved
+      ]);
+    }
+  };
+  return () => {
+    try {
+      ws.close();
+    } catch (e) {}
+  };
+}, []);
+
+...
+
+
+```
+```jsx title="Connected state values"
+function scanReducer(state, [type, payload]) {
+  switch (type) {
+    case "initial":
+      return { ...state, pending: payload.pending };
+    case "pendingBookAdded":
+      return { ...state, pending: state.pending + 1 };
+    case "bookAdded":
+      return {
+        ...state,
+        pending: state.pending - 1,
+        booksSaved: [payload, ...state.booksSaved]
+      };
+    case "bookLookupFailed":
+      return {
+        ...state,
+        pending: state.pending - 1,
+        booksSaved: [
+          {
+            _id: "" + new Date(),
+            title: `Failed lookup for ${payload.isbn}`,
+            success: false
+          },
+          ...state.booksSaved
+        ]
+      };
+  }
+  return state;
+}
+
+
+```
+
+```jsx 7:12
+function scanReducer(state, [type, payload]) {
+  switch (type) {
+    case "initial":
+      return { ...state, pending: payload.pending };
+    case "pendingBookAdded":
+      return { ...state, pending: state.pending + 1 };
+    case "bookAdded":
+      return {
+        ...state,
+        pending: state.pending - 1,
+        booksSaved: [payload, ...state.booksSaved]
+      };
+    case "bookLookupFailed":
+      return {
+        ...state,
+        pending: state.pending - 1,
+        booksSaved: [
+          {
+            _id: "" + new Date(),
+            title: `Failed lookup for ${payload.isbn}`,
+            success: false
+          },
+          ...state.booksSaved
+        ]
+      };
+  }
+  return state;
+}
+
+
+```
+```jsx 13:25
+function scanReducer(state, [type, payload]) {
+  switch (type) {
+    case "initial":
+      return { ...state, pending: payload.pending };
+    case "pendingBookAdded":
+      return { ...state, pending: state.pending + 1 };
+    case "bookAdded":
+      return {
+        ...state,
+        pending: state.pending - 1,
+        booksSaved: [payload, ...state.booksSaved]
+      };
+    case "bookLookupFailed":
+      return {
+        ...state,
+        pending: state.pending - 1,
+        booksSaved: [
+          {
+            _id: "" + new Date(),
+            title: `Failed lookup for ${payload.isbn}`,
+            success: false
+          },
+          ...state.booksSaved
+        ]
+      };
+  }
+  return state;
+}
+
+
+```
+
 </CodeSurfer>
 
 ---
 
-## About this Talk
+<CodeuseReducer/>
 
 ---
 
+
+<CodeuseImperativeHandle/>
+
+---
+
+<CodeuseLayoutEffect/>
+
+---
+
+<CodeuseDebugValue/>
+
+
+---
+
+# Demo
+
+--- 
+### Tips and Pitfalls
+
+---
+
+<CodePitFalls/>
+
+---
 Thank you
