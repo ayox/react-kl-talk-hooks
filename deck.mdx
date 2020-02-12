@@ -68,7 +68,7 @@ Aymen Al-Ashwal
   <li>useReducer</li>
   <li>useCallback</li>
   <li>useMemo</li>
-  
+
 
 </Appear>
 
@@ -77,12 +77,12 @@ Aymen Al-Ashwal
 ## Additional hooks
 
 <Appear>
-  
+
  <li>useRef</li>
   <li>useImperativeHandle</li>
   <li>useLayoutEffect</li>
   <li>useDebugValue</li>
-  
+
 
 </Appear>
 
@@ -90,7 +90,7 @@ Aymen Al-Ashwal
 
 # useRef
 
-<p>a mutable value thorughout renders</p>
+<p>a mutable value throughout renders</p>
 
 
 ---
@@ -160,7 +160,7 @@ Expnisive calcuation
 ---
 
 
-# useMemo
+# useContext
 
 <Appear>
 <h3>
@@ -186,7 +186,7 @@ const CurrentRoute = React.createContext({ path: '/welcome' })
 export default function App() {
   return (
     <CurrentRoute.Consumer>
-      {currentRoute => 
+      {currentRoute =>
         currentRoute.path === '/welcome' &&
         "Welcome!"
       }
@@ -230,7 +230,7 @@ export default function App() {
 
 ```
 
-```jsx  title='useContext to the resuce'
+```jsx  title='useContext to the rescue'
 
 import React, { useContext } from 'react'
 
@@ -475,7 +475,7 @@ used with Ref</h3>
 
 <Appear>
 <h3>
-Syncronize effect
+Synchronize effect
 </h3>
 
 </Appear>
@@ -494,7 +494,7 @@ Syncronize effect
 
 ### Tips and Pitfalls
 
---- 
+---
 
 <CodeSurfer>
 
@@ -575,7 +575,7 @@ function Counter() {
 
 ---
 
-Qustions 
+Questions
 
 ---
 
